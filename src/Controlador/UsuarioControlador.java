@@ -10,6 +10,8 @@ import java.sql.SQLException;
 import java.util.List;
 import javax.swing.JOptionPane;
 
+
+
 /**
  *
  * @author COMPHP
@@ -92,4 +94,21 @@ public class UsuarioControlador {
         // Eliminar un usuario
         controlador.eliminarUsuario(1);
     }
+    
+     public Usuario validarCredenciales(String usuario, String contrasena) {
+        try {
+            Usuario user = usuarioDAO.validarUsuario(usuario, contrasena);
+            if (user != null) {
+                System.out.println("Inicio de sesión exitoso.");
+                return user;
+            } else {
+                JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos.", "Error", JOptionPane.ERROR_MESSAGE);
+                return null;
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al validar: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+    }
+    
 }
